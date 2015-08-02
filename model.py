@@ -16,33 +16,33 @@ class Model(db.Model):
 
     __tablename__ = "models"
     
-    model_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    model_year = db.Column(db.Integer, nullable=True)
-    model_brand_name = db.Column(db.String(64), nullable=True)
-    model_name = db.Column(db.String(64), nullable=True)
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    year = db.Column(db.Integer, nullable=True)
+    brand_name = db.Column(db.String(64), nullable=True)
+    name = db.Column(db.String(64), nullable=True)
    
 
     def __repr__(self):
         """Provides helpful representation when printing."""
-        return "<Model model_id=%s model_name=%s>" % (self.model_id, self.model_name)
+        return "<Model id=%s name=%s>" % (self.id, self.name)
 
 
 class Brand(db.Model):
 
     __tablename__ = "brands"
-    brand_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    brand_name = db.Column(db.Integer, db.ForeignKey('models.model_brand_name'))
-    brand_founded = db.Column(db.String(64))
-    brand_headquarters = db.Column(db.String(64))
-    brand_discontinued = db.Column(db.Integer)
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    name = db.Column(db.Integer, db.ForeignKey('models.brand_name'))
+    founded = db.Column(db.String(64))
+    headquarters = db.Column(db.String(64))
+    discontinued = db.Column(db.Integer)
    
 
-    model = db.relationship("Model", backref=db.backref("brands", order_by=brand_id))
+    model = db.relationship("Model", backref=db.backref("brands", order_by=id))
    
 
     def __repr__(self):
         """Provides helpful representation when printing."""
-        return "<Brand model_id=%s brand_name=%s>" % (self.brand_id, self.brand_name)
+        return "<Brand id=%s name=%s>" % (self.id, self.name)
 
 
 # End Part 1
